@@ -4318,22 +4318,22 @@
     "known_embeddings = {}\n",
     "\n",
     "for person_name in os.listdir(dataset_path):\n",
-    "    print(person_name)\n",
+    "    
     "    person_folder = os.path.join(dataset_path, person_name)\n",
     "    \n",
     "    if os.path.isdir(person_folder):\n",
     "        for image_name in os.listdir(person_folder):\n",
-    "            print(image_name)\n",
+    "           
     "            image_path = os.path.join(person_folder, image_name)\n",
     "            try:\n",
     "                # Load image and process with MTCNN\n",
-    "                print(image_path)\n",
+    "                
     "                image = Image.open(image_path)\n",
     "                cropped_face = mtcnn(image)\n",
     "\n",
     "                if cropped_face is not None:\n",
     "                    # Generate 128D embeddings for the face\n",
-    "                    print(cropped_face)\n",
+    "                    
     "                    embedding = model(cropped_face.unsqueeze(0))\n",
     "                    known_embeddings[person_name] = embedding.detach()\n",
     "                    break  # Only use one image per person\n",
@@ -4396,10 +4396,9 @@
     "    try:\n",
     "        # Load test image and process with MTCNN\n",
     "        test_image = Image.open(test_image_path)\n",
-    "        print(\"Hello Opened\")\n",
+    "        
     "        cropped_face = mtcnn(test_image)\n",
-    "        print(\"Hello Cropped\")\n",
-    "        print(cropped_face)\n",
+    "        
     "\n",
     "        if cropped_face is None:\n",
     "            \n",
@@ -4408,15 +4407,15 @@
     "\n",
     "        # Generate embedding for the test image\n",
     "        test_embedding = np.array(model(cropped_face.unsqueeze(0)).detach()).flatten()\n",
-    "        print(\"Hello Embedding generated\")\n",
+    "      
     "\n",
     "        # Compare with known embeddings\n",
     "        for person_name, known_embedding in known_embeddings.items():\n",
-    "            print(\"Hello Checking similarity\")\n",
+    "           
     "            cosine_measure=cosine(test_embedding, np.array(known_embedding).flatten())\n",
-    "            print(\"Cosine measure found\")\n",
+    "            
     "            similarity=1-cosine_measure\n",
-    "            print(\"Similarity checked\")\n",
+    "        
     "\n",
     "            if similarity > threshold:\n",
     "                print(f\"Match found: {person_name} (Similarity: {similarity:.2f})\")\n",
